@@ -10,6 +10,8 @@ class Repo(val ipfs: IPFSConnection) {
 
     fun gc() = ipfs.callCmd("repo/gc").use { listFromNDJson(it.source()) }
 
+    fun stats() = ipfs.callCmd("repo/stat").use(ResponseBody::string)
+
     fun listFromNDJson(source: BufferedSource): List<String> {
         val jsonString = source.readUtf8()
         try {
